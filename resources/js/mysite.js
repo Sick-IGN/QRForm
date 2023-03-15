@@ -1,15 +1,23 @@
-function next() {
+function next(output) {
 
 }
 
-function prev() {
+function prev(output) {
 
 }
 
-function scanReset() {
+function scanReset(output) {
 
 }
 
-function saveReset() {
+function saveReset(output) {
+
+}
+
+function start() {
+
+}
+
+windows.onload = function () {
 
 }
