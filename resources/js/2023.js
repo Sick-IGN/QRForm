@@ -2,19 +2,32 @@ const form = {
   
   /*
     title: Title given to doc
-    prematch, auto, tele, endgame: pages, add as many as you want
-    {
-      q: question to ask
-      id: id given, must be unique
-      type: type of question; mcq, txt, num
-        mcq: multiple choice, requires "options"
-          choices: answers for mcq, formatted: {"return value":"public name"}
-        txt: any text, used as string
-        int: any integer
-          min: minimum valid input 
-          max: maximum valid input
-      required: true or false
-    }
+    pages : array of all pages
+      {
+        subtitle: page subtitle,
+        question: array of all question in the page 
+        {
+          q: name of question
+
+          id: id of question
+
+          type: type of question
+
+            int: integer answer
+              min: minimum value
+              max: maximum value
+
+            mcq: multiple choice
+              choices: array of possible answers
+                {
+                  choice: a possible answer
+                }
+            
+            txt: standard text based response
+
+          required: true/false, sets if question is required            
+        }
+      }
   */
 
   title: "Charged Up 263 Scouting",
@@ -67,6 +80,35 @@ const form = {
         }
       ]
     },
+    {
+      subtitle: "Teleop",
+      questions: [
+        { 
+          q: "Your name:",
+          id: "name",
+          type: "txt",
+        }, 
+        {
+          q: "Match Number:",
+          id: "match",
+          type: "txt"
+        }
+      ]
+    },
+    {
+      subtitle: "Endgame",
+      questions: [
+        { 
+          q: "Your name:",
+          id: "name",
+          type: "txt",
+        }, 
+        {
+          q: "Match Number:",
+          id: "match",
+          type: "txt"
+        }
+      ]
+    }
   ]
 }
-

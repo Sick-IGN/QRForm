@@ -14,3 +14,12 @@ h2 {
   font-size: 2em;
   text-align: center;
 }
+.hiddenPage {
+  display: none;
+}
+.invis {
+  display: none;
+}
+#qrcode {
+  margin: 100px 100px 100px 100px;
+}
