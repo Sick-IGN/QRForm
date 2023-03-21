@@ -5,7 +5,6 @@
 		<link rel="icon" sizes="16x16 32x32 64x64" href="resources/img/logo.jpg">
 		<script src="resources/js/easy.qrcode.min.js"></script>
 		<script src="resources/js/2023.js"></script>
-		<!--<script src="resources/js/2023options.js"></script>-->
 		<script src="resources/js/mysite.js"></script>
 		<link rel="stylesheet" href="resources/mysite.css">
 	</head>
@@ -14,8 +13,7 @@
 		<form id="main"></form>
 		<button id="prev" onclick="prevPage()">Previous</button>
 		<button id="next" onclick="nextPage()">Next</button>
-		<button id="submit" class="invis" onclick="submit()">Submit</button>
-		<button id="sqlgen" onclick="createTable()">Create Table</button>
+		<button id="submit" type="submit" class="invis" onclick="validate()">Submit</button>
 		<div id="qrcode" class="invis"></div>
 	</body>
 </html>

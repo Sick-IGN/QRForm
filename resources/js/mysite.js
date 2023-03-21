@@ -19,8 +19,8 @@ function generateVisiblePage(index) {
     page += ('<label for="' + id + '">' + q + '</label>');
 
     if (type == "txt") {
-      if (req == "true") {page += ('<input name="' + id + '" required type="text"></input');}
-      else  {page += ('<input name="' + id + '" type="text"></input');}
+      if (req == "true") {page += ('<input name="' + id + '" required type="text">');}
+      else  {page += ('<input name="' + id + '" type="text">');}
 
     } else if (type == "mcq") {
       choices = form.pages[index].questions[i].choices;
@@ -28,11 +28,11 @@ function generateVisiblePage(index) {
       for (var j = 0; j < choices.length; j++) {
         if (req == "true") {
           page += ('<label for="' + choices[j].choice + '">' + choices[j].choice + '</label>')
-          page += ('<input name="' + id + '" required type="radio" value="' + choices[j].choice + '"></input');
+          page += ('<input name="' + id + '" required type="radio" value="' + choices[j].choice + '">');
           
         }
         else  {
-          page += ('<input name="' + id + '" type="radio"></input');
+          page += ('<input name="' + id + '" type="radio">');
         }
 
       }
@@ -40,8 +40,8 @@ function generateVisiblePage(index) {
       min = form.pages[index].questions[i].min
       max = form.pages[index].questions[i].max
 
-      if (req == "true") {page += ('<input name="' + id + '" required type="number" min="' + min + '" max="' + max + '"></input');}
-      else  {page += ('<input name="' + id + '" type="number" min="' + min + '" max="' + max + '"></input');}
+      if (req == "true") {page += ('<input name="' + id + '" required type="number" min="' + min + '" max="' + max + '">');}
+      else  {page += ('<input name="' + id + '" type="number" min="' + min + '" max="' + max + '">');}
 
     } else if (type == "special") {
       //ADAM MANUALLY IMPLEMENT THIS FOR THE SCORE TRACKER, MAKE SOME AUTO THING LATER
@@ -184,46 +184,26 @@ function submit() {
   let output = '';
   let formValues = document.querySelectorAll('form#main input');
   formValues = Array.from(formValues);
-  let formData = new FormData();
 
-  formValues.forEach(input => {
-    formData.append(input.name, input.value);
-  });
+  //If fail, qrcode time
+  output += formValues[0].name;
+  output += '=';
+  output += formValues[0].value;
 
-  //Attempts a post
-  fetch('/priv/submit.js', {
-    method: 'POST',
-    body: formData,
-    timeout: 5000 
-  })
-
-  .then(response => {  
-    //If success
-    alert('Success!');
-    setTimeout(() => {reset();}, 5000)
-  })
-
-  .catch(error => {
-    //If fail, qrcode time
-    output += formValues[0].name;
+  for (let i = 1; i < formValues.length; i++) {
+    output += ';'
+    output += formValues[i].name;
     output += '=';
-    output += formValues[0].value;
+    output += formValues[i].value;
+  }
 
-    for (let i = 1; i < formValues.length; i++) {
-      output += ';'
-      output += formValues[i].name;
-      output += '=';
-      output += formValues[i].value;
-    }
-
-    var options = {
-      text: output,
-      width: 256,
-      height: 256
-    };
-    new QRCode(document.getElementById('qrcode'), options);
-    document.getElementById('qrcode').setAttribute('class', '');
-  })
+  var options = {
+    text: output,
+    width: 256,
+    height: 256
+  };
+  new QRCode(document.getElementById('qrcode'), options);
+  document.getElementById('qrcode').setAttribute('class', '');
 };
 
 function createTable() {
@@ -233,4 +213,27 @@ function createTable() {
 
 window.onload = function() {
   initialize();
+};
+
+
+
+function validate() {
+  let formItem = document.getElementById('main')
+  alert(formItem.innerHTML);
+  let inputs = formItem.querySelectorAll('input[required]')
+  let hasError = false;
+  inputs.forEach(input => {
+    if (input.style.display === 'none' && !input.checkValidity()) {
+      hasError = true;
+      alert(input.value);
+    }
+  });
+
+  if (hasError) {
+    const errorMessage = document.createElement('p');
+    errorMessage.textContent = 'Please fill in all required fields.';
+    formItem.insertBefore(errorMessage, formItem.firstChild);
+  } else {
+    submit();
+  }
 };
