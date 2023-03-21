@@ -181,35 +181,63 @@ function saveQRandReset() {
 //Attempts to post data to a server
 //If it fails, provides a QR code instead
 function submit() {
-  //Attempts a post
 
-  //If success, bing chilling
-
-  //If fail, qrcode time
   let output = '';
   let formValues = document.querySelectorAll('form#main input');
   formValues = Array.from(formValues);
-  
-  output += formValues[0].name;
-  output += '=';
-  output += formValues[0].value;
+  formValues = JSON.stringify(formValues);
 
-  for (let i = 1; i < formValues.length; i++) {
-    output += ';'
-    output += formValues[i].name;
-    output += '=';
-    output += formValues[i].value;
-  }
+  //Attempts a post
 
-  var options = {
-    text: output,
-    width: 256,
-    height: 256
-  };
-  new QRCode(document.getElementById('qrcode'), options);
-  document.getElementById('qrcode').setAttribute('class', '');
+  $.ajax({
+    type: "POST",
+    url: "submit.php",
+    data: formValues,
+    dataType: "json",
+    success: function() {
+      alert("Success!");
+      setTimeout(() => {reset();}, 3000);
+    },
+    error: function() {
+
+      //If fail, qrcode time
+      output += formValues[0].name;
+      output += '=';
+      output += formValues[0].value;
+
+      for (let i = 1; i < formValues.length; i++) {
+        output += ';'
+        output += formValues[i].name;
+        output += '=';
+        output += formValues[i].value;
+      }
+
+    var options = {
+      text: output,
+      width: 256,
+      height: 256
+    };
+    new QRCode(document.getElementById('qrcode'), options);
+    document.getElementById('qrcode').setAttribute('class', '');
+    }
+  })
 };
 
-window.onload = function() {
+function createTable() {
+  let formValues = document.querySelectorAll('form#main input');
+  formValues = Array.from(formValues);
+  formValues = JSON.stringify(formValues);
+   $.ajax({
+    type: "POST",
+    url: "createtable.php",
+    data: formValues,
+    dataType: "json",
+    success: function() {
+      alert("Success!");
+    }
+  })
+};
+
+$(document).ready(function() {
   initialize();
-};
+});
