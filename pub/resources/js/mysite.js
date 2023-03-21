@@ -232,6 +232,6 @@ function createTable() {
   formValues = Array.from(formValues);
 };
 
-$(document).ready(function() {
+document.onload = function() {
   initialize();
-});
+};
