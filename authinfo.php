@@ -1,3 +1,3 @@
 <?php
-  $db = new mysqli('localhost', '263admin', 'weare263', 'scout');
+  $db = new mysqli('localhost', 'root', 'p@s5w0rd', 'scout');
 ?>

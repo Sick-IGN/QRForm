@@ -230,7 +230,7 @@ function createTable() {
    $.ajax({
     type: "POST",
     url: "createtable.php",
-    data: formValues,
+    data: { formValues: formValues },
     dataType: "json",
     success: function() {
       alert("Success!");
