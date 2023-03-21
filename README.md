@@ -1,5 +1,5 @@
 # QRScout
- Offline QR code based scouting app for FRC263
+ Offline QR code based form application
 
 ## Features
  Usable in poor or 0 connectivity areas, but provides ease of use when internet access is available.
