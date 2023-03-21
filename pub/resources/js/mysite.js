@@ -133,12 +133,11 @@ function initialize() {
 
   //Sets title to <header> title and text title
   document.title=form.title;
-  document.getElementsByTagName('h1')[0].innerHTML=form.title;
+  document.getElementById('title').innerHTML=form.title;
 
   //Generates pages
   generatePages();
 
-  //Generates QRCode Image to be show
 };
 
 //Goes to the next page, removing next and adding submit if the user is now on the last page
@@ -232,6 +231,4 @@ function createTable() {
   formValues = Array.from(formValues);
 };
 
-document.onload = function() {
-  initialize();
-};
+document.addEventListener("load", initialize());
