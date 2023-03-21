@@ -185,32 +185,37 @@ function submit() {
   let output = '';
   let formValues = document.querySelectorAll('form#main input');
   formValues = Array.from(formValues);
-  formValues = JSON.stringify(formValues);
+  let formData = new FormData();
+
+  formValues.forEach(input => {
+    formData.append(input.name, input.value);
+  });
 
   //Attempts a post
+  fetch('/priv/submit.js', {
+    method: 'POST',
+    body: formData,
+    timeout: 5000 
+  })
 
-  $.ajax({
-    type: "POST",
-    url: "submit.php",
-    data: formValues,
-    dataType: "json",
-    success: function() {
-      alert("Success!");
-      setTimeout(() => {reset();}, 3000);
-    },
-    error: function() {
+  .then(response => {  
+    //If success
+    alert('Success!');
+    setTimeout(() => {reset();}, 5000)
+  })
 
-      //If fail, qrcode time
-      output += formValues[0].name;
+  .catch(error => {
+    //If fail, qrcode time
+    output += formValues[0].name;
+    output += '=';
+    output += formValues[0].value;
+
+    for (let i = 1; i < formValues.length; i++) {
+      output += ';'
+      output += formValues[i].name;
       output += '=';
-      output += formValues[0].value;
-
-      for (let i = 1; i < formValues.length; i++) {
-        output += ';'
-        output += formValues[i].name;
-        output += '=';
-        output += formValues[i].value;
-      }
+      output += formValues[i].value;
+    }
 
     var options = {
       text: output,
@@ -219,23 +224,12 @@ function submit() {
     };
     new QRCode(document.getElementById('qrcode'), options);
     document.getElementById('qrcode').setAttribute('class', '');
-    }
   })
 };
 
 function createTable() {
   let formValues = document.querySelectorAll('form#main input');
   formValues = Array.from(formValues);
-  formValues = JSON.stringify(formValues);
-   $.ajax({
-    type: "POST",
-    url: "createtable.php",
-    data: { formValues: formValues },
-    dataType: "json",
-    success: function() {
-      alert("Success!");
-    }
-  })
 };
 
 $(document).ready(function() {
