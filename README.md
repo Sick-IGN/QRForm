@@ -1,4 +1,4 @@
-# QRScout
+# QRForm
  Offline QR code based form application
 
 ## Features
