@@ -230,6 +230,19 @@ function submit() {
 function createTable() {
   let formValues = document.querySelectorAll('form#main input');
   formValues = Array.from(formValues);
+<<<<<<< HEAD:pub/resources/js/mysite.js
+=======
+  formValues = JSON.stringify(formValues);
+   $.ajax({
+    type: "POST",
+    url: "createtable.php",
+    data: formValues,
+    dataType: "json",
+    success: function() {
+      alert("Success!");
+    }
+  })
+>>>>>>> parent of d050a1f (v0.3.1):resources/js/mysite.js
 };
 
 $(document).ready(function() {
