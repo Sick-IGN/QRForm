@@ -231,4 +231,6 @@ function createTable() {
   formValues = Array.from(formValues);
 };
 
-document.addEventListener("load", initialize());
+window.onload = function() {
+  initialize();
+};
